@@ -9,7 +9,7 @@ def data_processing ( files_path : str ,
   group_names = os.listdir (files_path)
 
   info = list()   # manipulation data container
-
+  
   for g in group_names:
 
     num_files = len( os.listdir (f"{files_path}/{g}") )
@@ -68,7 +68,7 @@ def data_processing ( files_path : str ,
 
     ## Data processing
     noise = np.random.normal ( 0.0, tdc_resolution, size = len(data) )
-    theta_0 = np.random.uniform ( -1e-7, 1e7 )
+    theta_0 = np.random.uniform ( -1e-7, 1e-7 )
     theta_1 = np.random.uniform ( -0.2, 0.2 ) + 1.0
 
     info . append ( [g, tdc_resolution, theta_0, theta_1] )
