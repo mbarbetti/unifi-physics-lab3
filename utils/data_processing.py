@@ -42,10 +42,13 @@ def data_processing ( files_path : str ,
 
       if os.path.exists ( f"{files_path}/{g}/Dati_{g}.txt" ):
         file_name = f"{files_path}/{g}/Dati_{g}"
+        file_name_extra = file_name
       elif os.path.exists ( f"{files_path}/{g}/Dati_{g}_1.txt" ):
         file_name = f"{files_path}/{g}/Dati_{g}_1"
+        file_name_extra = f"{files_path}/{g}/Dati_{g}"
       else:
         file_name = f"{files_path}/{g}/Dati"
+        file_name_extra = f"{files_path}/{g}/Dati"
 
       with open ( f"{file_name}.txt", "r" ) as f:
         lines = f.readlines()
@@ -54,14 +57,14 @@ def data_processing ( files_path : str ,
       tot_events += int(lines[4].split(" ")[-1][:-1])
       data . append ( pd.read_csv ( f"{file_name}.txt", header = 4, delim_whitespace = True ) )
 
-      for i in range(2, num_files - 1):
+      for i in range(2, num_files):
 
-        with open ( f"{file_name}_{i}.txt", "r") as f:
+        with open ( f"{file_name_extra}_{i}.txt", "r") as f:
           other_lines = f.readlines()
         
         tot_time += float(other_lines[3].split(" ")[-1][:-1])
         tot_events += int(other_lines[4].split(" ")[-1][:-1])
-        data . append ( pd.read_csv ( f"{file_name}_{i}.txt", header = 4, delim_whitespace = True ) )
+        data . append ( pd.read_csv ( f"{file_name_extra}_{i}.txt", header = 4, delim_whitespace = True ) )
 
       data = pd.concat ( data, axis = 0, ignore_index = True )
       data = data . drop ( ["Time", "Valido"], axis = 1 )
