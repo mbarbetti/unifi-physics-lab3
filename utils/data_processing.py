@@ -16,8 +16,10 @@ def data_processing ( files_path : str ,
 
     ##   Single data file
     ## --------------------
-    if num_files == 2:
-
+    print(num_files)
+    print({g})
+    if num_files == 1:
+      print('here')  
       if os.path.exists ( f"{files_path}/{g}/Dati_{g}.txt" ):
         file_name = f"{files_path}/{g}/Dati_{g}"
       else:
@@ -35,7 +37,7 @@ def data_processing ( files_path : str ,
     ##   Multiple data file
     ## ----------------------
     else:
-
+      print('more than 1')
       tot_time = 0.0
       tot_events = 0
       data = list()
@@ -51,14 +53,17 @@ def data_processing ( files_path : str ,
         file_name_extra = f"{files_path}/{g}/Dati"
 
       with open ( f"{file_name}.txt", "r" ) as f:
+       
         lines = f.readlines()
       
       tot_time += float(lines[3].split(" ")[-1][:-1])
       tot_events += int(lines[4].split(" ")[-1][:-1])
       data . append ( pd.read_csv ( f"{file_name}.txt", header = 4, delim_whitespace = True ) )
-
-      for i in range(2, num_files):
-
+      
+       
+      for i in range(2, num_files+1):
+        
+        print('loop')
         with open ( f"{file_name_extra}_{i}.txt", "r") as f:
           other_lines = f.readlines()
         
